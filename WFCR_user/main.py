@@ -7,9 +7,6 @@ from WFCR_user.wfcr import WFCR
 from qreader import QReader
 import cv2
 
-reader = WFCR()
-qreader = QReader()
-
 
 def get_prediction(input_image):
     img, img_bbox, img_mask = reader.detect(input_image,
@@ -31,6 +28,13 @@ def get_value(input_image):
     return result, qrCode
 
 
+try:
+    reader = WFCR()
+    qreader = QReader()
+except:
+    pass
+
+
 def create_api_data_image(image_url):
     result, qrCode = get_value(image_url)
     qr = ""
@@ -42,7 +46,6 @@ def create_api_data_image(image_url):
         "qr": f"{qr}"
     }
     response = requests.post(url, json=data)
-
 
 # create_api_data_image
 #
